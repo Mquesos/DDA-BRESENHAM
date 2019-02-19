@@ -104,17 +104,18 @@ namespace ALGORITMOS
 
             if(dx < 0 & dy < 0 | dx > 0 & dy < 0) 
             {
-                float inx = xi;
-                float iny = yi;
+                int inx = xi;
+                int iny = yi;
 
                 xi = xf;
-                xf = (int)inx;//casteo a int
+                xf = inx;//casteo a int
 
                 yi = yf;
-                yf = (int)iny;//casteo a int
+                yf = iny;//casteo a int
 
                 dx = xf - xi;
-                dx = yf - yi;
+                dy = yf - yi;
+                Console.WriteLine("------------- Sentido Coordenadas ------------------");
             }
 
             //Verificar si X es el eje independiente de la recta
@@ -154,7 +155,7 @@ namespace ALGORITMOS
             {
                 m = dx / dy;
 
-                //Verifica si la dependiente es mayor que cero
+                //Verifica si la pendiente es mayor que cero
                 if(m > 0)
                 {
                     for (ky = 1; ky < dy; ky++)
