@@ -92,7 +92,7 @@ namespace ALGORITMOS
             //Verificar si la recta es horizontal
             if (dy == 0)
             {
-                if (dx > 0)
+                if (dy > 0)
                 {
                     for (int k = xi; k <= xf; k++)
                     {
@@ -101,6 +101,7 @@ namespace ALGORITMOS
                 }
             }
             //verificar el sentido de la recta
+
             if(dx < 0 & dy < 0 | dx > 0 & dy < 0) 
             {
                 float inx = xi;
