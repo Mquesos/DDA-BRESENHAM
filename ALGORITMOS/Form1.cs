@@ -12,7 +12,9 @@ namespace ALGORITMOS
 {
     public partial class Form1 : Form
     {
-        Pen pen = new Pen(Color.Green, 3);
+        int r = 0;
+        Pen pen = new Pen(Color.Green, 3);//DDA
+        Pen penb = new Pen(Color.Red, 3);//BRESENHAM
         List<ClaseCoordenada> listaCoordenadas;//Clase que se comporta como punto Point
         public Form1()
         {
@@ -41,7 +43,6 @@ namespace ALGORITMOS
             coordenadaX = e.X;
             coordenadaY = e.Y;
             ClaseCoordenada coordenada = new ClaseCoordenada();
-
             coordenada.setX(coordenadaX);
             coordenada.setY(coordenadaY);
             listaCoordenadas.Add(coordenada);
@@ -56,9 +57,6 @@ namespace ALGORITMOS
             xf = listaCoordenadas[1].getX();
             yf = listaCoordenadas[1].getY();
 
-            Console.WriteLine("------------- captura de coordenadas ------------------");
-            Console.WriteLine("punto x inicial: (" + xi + ", " + yi + ")");
-            Console.WriteLine("punto y final: (" + xf + ", " + yf + ")");
 
             float dx;
             float dy;       
@@ -188,6 +186,114 @@ namespace ALGORITMOS
 
                     }
                 }
+            }
+        }
+
+        void bresenhamX(int xi, int yi, int xf, int yf, int dx,int dy)
+        {
+            int i, j, k, aux;
+
+            i = 2 * dy - dx;
+            j = 2 * dy;
+            k = 2 * (dy - dx);
+
+            if(!(xi < xf))
+            {
+                aux = xi;
+                xi = xf;
+                xf = aux;
+
+                aux = yi;
+                yi = yf;
+                yf = aux;
+            }
+            panel1.CreateGraphics().DrawEllipse(penb, xi, yi, 5, 5);
+
+            while (yi < yf)
+            {
+                if(i < 0)
+                {
+                    i += j;
+                }
+                else
+                {
+                    if(xi < xf)
+                    {
+                        ++xi;
+                    }
+                    else
+                    {
+                        ++xi;
+                    }
+                    i += k;
+                }
+                ++yi;
+             panel1.CreateGraphics().DrawEllipse(penb, xi, yi, 5, 5);
+            }
+        }
+        void bresenhamY(int xi, int yi, int xf, int yf, int dx, int dy)
+        {
+            int i, j, k, aux;
+
+            i = 2 * dx - dy;
+            j = 2 * dx;
+            k = 2 * (dx - dy);
+
+            if (!(yi < yf))
+            {
+                aux = xf;
+                xf = xi;
+                xi = aux;
+
+                aux = yi;
+                yi = yf;
+                yf = aux;
+            }
+            panel1.CreateGraphics().DrawEllipse(penb, xi, yi, 5, 5);
+
+            while (xi < xf)
+            {
+                if (i < 0)
+                {
+                    i += j;
+                }
+                else
+                {
+                    if (yi < yf)
+                    {
+                        ++yi;
+                    }
+                    else
+                    {
+                        --yf;
+                    }
+                    i += k;
+                }
+                ++xi;
+                panel1.CreateGraphics().DrawEllipse(penb, xi, yi, 5, 5);
+            }
+        }
+
+
+
+        private void bresenham_Click(object sender, EventArgs e)
+        {
+            int xi, yi, xf, yf;
+            xi = listaCoordenadas[0].getX();
+            yi = listaCoordenadas[0].getY();
+            xf = listaCoordenadas[1].getX();
+            yf = listaCoordenadas[1].getY();
+
+            int dx = Math.Abs(xf - xi);
+            int dy = Math.Abs(yf - yi);
+
+            if (dx >= dy)
+            {
+                bresenhamX(xi, yi, xf, yf, dx, dy);
+            }
+            else
+            {
+                bresenhamY(xi, yi, xf, yf, dx, dy);
             }
         }
     }

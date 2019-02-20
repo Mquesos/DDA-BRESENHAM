@@ -44,7 +44,7 @@
             // 
             // dda
             // 
-            this.dda.Location = new System.Drawing.Point(608, 47);
+            this.dda.Location = new System.Drawing.Point(554, 22);
             this.dda.Name = "dda";
             this.dda.Size = new System.Drawing.Size(107, 23);
             this.dda.TabIndex = 1;
@@ -54,12 +54,13 @@
             // 
             // bresenham
             // 
-            this.bresenham.Location = new System.Drawing.Point(608, 96);
+            this.bresenham.Location = new System.Drawing.Point(681, 22);
             this.bresenham.Name = "bresenham";
             this.bresenham.Size = new System.Drawing.Size(107, 23);
             this.bresenham.TabIndex = 2;
             this.bresenham.Text = "BRESEMHAM";
             this.bresenham.UseVisualStyleBackColor = true;
+            this.bresenham.Click += new System.EventHandler(this.bresenham_Click);
             // 
             // Form1
             // 
