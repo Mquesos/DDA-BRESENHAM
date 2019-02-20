@@ -65,7 +65,7 @@ namespace ALGORITMOS
             yf = listaCoordenadas[r+1].getY();
 
             float dx;
-            float dy;       
+            float dy;      
             float m;
             float b;
             int kx = 0;
@@ -119,7 +119,6 @@ namespace ALGORITMOS
 
                 dx = xf - xi;
                 dy = yf - yi;
-                Console.WriteLine("------------- Sentido Coordenadas ------------------");
             }
 
             //Verificar si X es el eje independiente de la recta
@@ -131,9 +130,9 @@ namespace ALGORITMOS
                 {
                     for (kx = 1; kx < dx; kx++)
                     {
-                        d1 = m * kx - ky;
-                        d2 = (ky + 1) - m * kx;
-                        d3 = d1 - d2;
+                        d1 = m * kx - ky;// y = mx + b
+                        d2 = (ky + 1) - m * kx;// b = y - mx
+                        d3 = d1 - d2;//
 
                         if (d3 > 0)
                             ky++;
@@ -225,15 +224,15 @@ namespace ALGORITMOS
                 {
                     if(yi < yf)
                     {
-                        ++yi;
+                        yi++;
                     }
                     else
                     {
-                        --yi;
+                        yi--;
                     }
                     i += k;
                 }
-                ++xi;
+                xi++;
              panel1.CreateGraphics().DrawEllipse(penb, xi, yi, 5, 5);
             }
         }
@@ -268,15 +267,15 @@ namespace ALGORITMOS
                 {
                     if (xi > xf)
                     {
-                        --xi;
+                        xi--;
                     }
                     else
                     {
-                        ++xi;
+                        xi++;
                     }
                     i += k;
                 }
-                ++yi;
+                yi++;
                 panel1.CreateGraphics().DrawEllipse(penb, xi, yi, 5, 5);
             }
         }
