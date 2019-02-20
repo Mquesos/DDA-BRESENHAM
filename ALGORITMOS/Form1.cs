@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace ALGORITMOS
 {
@@ -16,11 +17,14 @@ namespace ALGORITMOS
         Pen pen = new Pen(Color.Green, 3);//DDA
         Pen penb = new Pen(Color.Red, 3);//BRESENHAM
         List<ClaseCoordenada> listaCoordenadas;//Clase que se comporta como punto Point
+
+
         public Form1()
         {
             InitializeComponent();
             listaCoordenadas = new List<ClaseCoordenada>();// creando las listas en constructor
-
+            label1.Text = "";
+            label2.Text = "";
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
@@ -51,12 +55,14 @@ namespace ALGORITMOS
 
         private void dda_Click(object sender, EventArgs e)
         {
-            int xi, yi, xf, yf;
-            xi = listaCoordenadas[0].getX();
-            yi = listaCoordenadas[0].getY();
-            xf = listaCoordenadas[1].getX();
-            yf = listaCoordenadas[1].getY();
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
 
+            int xi, yi, xf, yf;
+            xi = listaCoordenadas[r].getX();
+            yi = listaCoordenadas[r].getY();
+            xf = listaCoordenadas[r+1].getX();
+            yf = listaCoordenadas[r+1].getY();
 
             float dx;
             float dy;       
@@ -187,29 +193,29 @@ namespace ALGORITMOS
                     }
                 }
             }
+            label1.Text = String.Format("{0}", sw.Elapsed.TotalMilliseconds);
         }
 
         void bresenhamX(int xi, int yi, int xf, int yf, int dx,int dy)
         {
             int i, j, k, aux;
 
-            i = 2 * dy - dx;
+            i = (2 * dy) - dx;
             j = 2 * dy;
             k = 2 * (dy - dx);
 
             if(!(xi < xf))
             {
-                aux = xi;
-                xi = xf;
-                xf = aux;
-
+                aux = xf;
+                xf = xi;
+                xi = aux;
                 aux = yi;
                 yi = yf;
                 yf = aux;
             }
             panel1.CreateGraphics().DrawEllipse(penb, xi, yi, 5, 5);
 
-            while (yi < yf)
+            while (xi < xf)
             {
                 if(i < 0)
                 {
@@ -217,17 +223,17 @@ namespace ALGORITMOS
                 }
                 else
                 {
-                    if(xi < xf)
+                    if(yi < yf)
                     {
-                        ++xi;
+                        ++yi;
                     }
                     else
                     {
-                        ++xi;
+                        --yi;
                     }
                     i += k;
                 }
-                ++yi;
+                ++xi;
              panel1.CreateGraphics().DrawEllipse(penb, xi, yi, 5, 5);
             }
         }
@@ -249,9 +255,10 @@ namespace ALGORITMOS
                 yi = yf;
                 yf = aux;
             }
+
             panel1.CreateGraphics().DrawEllipse(penb, xi, yi, 5, 5);
 
-            while (xi < xf)
+            while (yi < yf)
             {
                 if (i < 0)
                 {
@@ -259,17 +266,17 @@ namespace ALGORITMOS
                 }
                 else
                 {
-                    if (yi < yf)
+                    if (xi > xf)
                     {
-                        ++yi;
+                        --xi;
                     }
                     else
                     {
-                        --yf;
+                        ++xi;
                     }
                     i += k;
                 }
-                ++xi;
+                ++yi;
                 panel1.CreateGraphics().DrawEllipse(penb, xi, yi, 5, 5);
             }
         }
@@ -278,12 +285,16 @@ namespace ALGORITMOS
 
         private void bresenham_Click(object sender, EventArgs e)
         {
-            int xi, yi, xf, yf;
-            xi = listaCoordenadas[0].getX();
-            yi = listaCoordenadas[0].getY();
-            xf = listaCoordenadas[1].getX();
-            yf = listaCoordenadas[1].getY();
+            Stopwatch sw2 = new Stopwatch();
+            sw2.Start();
 
+            int xi, yi, xf, yf;
+            xi = listaCoordenadas[r].getX();
+            yi = listaCoordenadas[r].getY();
+            r++;
+            xf = listaCoordenadas[r].getX();
+            yf = listaCoordenadas[r].getY();
+            r++;
             int dx = Math.Abs(xf - xi);
             int dy = Math.Abs(yf - yi);
 
@@ -295,6 +306,7 @@ namespace ALGORITMOS
             {
                 bresenhamY(xi, yi, xf, yf, dx, dy);
             }
+            label2.Text = String.Format("{0}", sw2.Elapsed.TotalMilliseconds);
         }
     }
 }
